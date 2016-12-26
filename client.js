@@ -1,13 +1,16 @@
 var socket;
+var username = window.prompt('Enter a username:', '');
 
 function setup() {
   socket = io();
 
-  socket.on('chat', function(message) {
-    document.getElementById('chatContent').innerHTML += '<p>' + message + '</p>';
+  socket.on('chat', function(author, message) {
+    var format = 'i';
+    if(author == username) format = 'b';
+    document.getElementById('chatContent').innerHTML += '<p><' + format + '>' + author + '</' + format + '> | ' + message + '</p>';
   });
 }
 
 function send() {
-  socket.emit('chat', document.getElementById('messageInput').value);
+  socket.emit('chat', username, document.getElementById('messageInput').value);
 }
