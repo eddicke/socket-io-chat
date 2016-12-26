@@ -15,7 +15,7 @@ http.listen('4444', function() {
 
 io.on('connection', function(socket) {
   socket.on('chat', function(username, message) {
-    console.log('message, sent by: ' + username + ', content: ' + message);
+    console.log('message received, sent by: ' + username + ', content: ' + message);
     io.emit('chat', username, message);
   });
 });
